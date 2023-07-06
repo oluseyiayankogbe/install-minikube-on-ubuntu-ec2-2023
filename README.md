@@ -3,9 +3,12 @@ Complete set of commands to succesfully install minikube on an amazon ubuntu 20.
 ssh into your ubuntu 20.0.4 ec2 server (must be t2 medium , 2 cores, 4gb ram, 25gb storage)
 
 #update your server
+
 sudo apt-get update
 
+
 #install docker
+
 sudo apt-get install ca-certificates curl gnupg lsb-release -y
 
 sudo mkdir -m 0755 -p /etc/apt/keyrings
@@ -25,6 +28,7 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
 sudo systemctl status docker
+
 #then press "ESC", then ":wq" to exit the status display
 
 sudo systemctl enable --now docker
@@ -38,7 +42,9 @@ sudo systemctl restart docker
 docker ps
 
 #become a root user
+
 sudo -i
+
 
 #install kubectl
 
@@ -48,12 +54,16 @@ mv kubectl /bin/kubectl
 
 chmod a+x /bin/kubectl
 
+
 #install minikube
+
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/bin/minikube
 sudo apt install conntrack -y
 
+
 #install go
+
 wget https://storage.googleapis.com/golang/getgo/installer_linux
 
 chmod +x ./installer_linux
@@ -62,7 +72,9 @@ chmod +x ./installer_linux
 
 source ~/.bash_profile
 
+
 #Install cri-dockerd
+
 apt install git -y
 
 git clone https://github.com/Mirantis/cri-dockerd.git
@@ -92,6 +104,7 @@ systemctl enable cri-docker.service
 
 systemctl enable --now cri-docker.socket
 
+
 #Install CRICTL
 
 VERSION="v1.26.0" # check latest version in /releases page
@@ -111,9 +124,11 @@ EOF
 
 sudo sysctl fs.protected_regular=0
 
+
 #install calico
 
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/calico.yaml
+
 
 #verify the calico installation
 
@@ -122,15 +137,19 @@ watch kubectl get pods -l k8s-app=calico-node -A
 #Use "ctrl+c" to break out of watch
 
 
+
 #Start Minikube
 
 minikube start --vm-driver=none
+
 
 #Test The setup
 
 kubectl run hello-minikube --image=gcr.io/google_containers/echoserver:1.4 --port=8080
 
 kubectl expose pod hello-minikube --type=NodePort
+
+
 
 Congratulations! You Succeeded!
 
