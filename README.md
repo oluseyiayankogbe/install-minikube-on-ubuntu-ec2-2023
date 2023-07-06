@@ -112,9 +112,11 @@ EOF
 sudo sysctl fs.protected_regular=0
 
 #install calico
+
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/calico.yaml
 
 #verify the calico installation
+
 watch kubectl get pods -l k8s-app=calico-node -A
 
 #Use "ctrl+c" to break out of watch
