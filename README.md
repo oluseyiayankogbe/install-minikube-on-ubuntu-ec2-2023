@@ -54,8 +54,6 @@ sudo install minikube-linux-amd64 /usr/bin/minikube
 sudo apt install conntrack -y
 
 #install go
-# Run these commands as root
-#Install GO
 wget https://storage.googleapis.com/golang/getgo/installer_linux
 
 chmod +x ./installer_linux
